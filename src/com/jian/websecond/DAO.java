@@ -64,4 +64,55 @@ public class DAO {
  		
 		return 0;
 	}
+	
+	public static int udpHobby(HobbyEntity param) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = "UPDATE hobby SET nm = ? WHERE i_hobby= ?";
+		
+		try {
+			con = DbUtils.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, param.getNm());
+			ps.setInt(2,  param.getI_hobby());
+			System.out.println(ps);
+			return ps.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.close(con, ps);
+		}
+		
+		return 0;
+	}
+	
+	public static int delHobby(HobbyEntity param) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = "DELETE FROM hobby WHERE i_hobby= ?";
+		
+		try {
+			con = DbUtils.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getI_hobby());
+			System.out.println(ps);
+			return ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.close(con, ps);
+		}
+		return 0;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
