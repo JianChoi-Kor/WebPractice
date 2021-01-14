@@ -14,7 +14,6 @@
 			<label>취미 : <input type="text" name="hobby"></label>
 			<input type="submit" value="등록">
 		</form>
-		${param}
 	</div>
 </body>
 </html>

@@ -23,7 +23,7 @@
 			<label> 번호 : <input type="text" name="i_hobby"></label>
 			<label> 취미 : <input type="text" name="nm"></label>
 			<input type ="submit" value="등록">
-		</form>
+		</form>	
 	</div>
 	<table>
 		<tr>
