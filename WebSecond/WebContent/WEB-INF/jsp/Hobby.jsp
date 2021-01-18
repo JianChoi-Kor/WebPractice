@@ -15,7 +15,7 @@
 <head>
 <meta charset="UTF-8">
 <title>hobby</title>
-<script defer src ="js/common.js"></script>
+<script defer src="js/common.js"></script>
 </head>
 <body>
 	<div>
