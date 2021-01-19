@@ -27,7 +27,7 @@
 			<% for(Board2Entity vo : list) { %>
 			<tr>
 				<td><%=vo.getI_board()%></td>
-				<td><a href=""><%=vo.getTitle()%></a></td>
+				<td><a href="/board2/detail?i_board=<%=vo.getI_board()%>"><%=vo.getTitle()%></a></td>
 				<td><%=vo.getR_dt()%></td>
 			</tr>
 			<% } %>
