@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/hobby")
 public class HobbyServlet extends HttpServlet {
@@ -21,6 +22,12 @@ public class HobbyServlet extends HttpServlet {
 		request.setAttribute("list", list);
 
 		
+		request.setAttribute("endIdx", 10);
+		
+		// 로그인 처리
+		HttpSession hs = request.getSession();
+		hs.setAttribute("loginUser", "");
+		
 		String jsp = "/WEB-INF/jsp/Hobby.jsp";
 		request.getRequestDispatcher(jsp).forward(request, response);
 		
@@ -28,6 +35,8 @@ public class HobbyServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		
+		
 		
 		String str_i_hobby = request.getParameter("i_hobby");
 		String nm = request.getParameter("nm");
