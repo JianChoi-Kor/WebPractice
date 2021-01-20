@@ -6,22 +6,26 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.copy.board2.model.Board2DTO;
 import com.copy.board2.model.Board2Entity;
 
 public class Board2DAO {
 	
-	public static List<Board2Entity> selBoardList() {
+	public static List<Board2Entity> selBoardList(Board2DTO param) {
 		List<Board2Entity> list = new ArrayList<>();
 		
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT i_board, title, r_dt from copy_board";
+		String sql = "SELECT i_board, title, r_dt from copy_board ORDER BY i_board DESC LIMIT ?, ?;";
 		
 		try {
 			con = DbUtils.getCon();
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getStartIdx());
+			ps.setInt(2, param.getRowCountPerPage());
+			System.out.println(ps);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
@@ -30,11 +34,9 @@ public class Board2DAO {
 				String r_dt = rs.getString("r_dt");
 				
 				Board2Entity vo = new Board2Entity();
-				
 				vo.setI_board(i_board);
 				vo.setTitle(title);
 				vo.setR_dt(r_dt);
-				
 				list.add(vo);
 			}
 			
@@ -142,6 +144,29 @@ public class Board2DAO {
 		}
 	}
 	
-	
+	public static int selPageLength(Board2DTO param) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT CEIL(count(i_board)/?) FROM copy_board";
+		
+		try {
+			con = DbUtils.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getRowCountPerPage());
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.close(con, ps, rs);
+		}
+		return 0;
+	}
 	
 }

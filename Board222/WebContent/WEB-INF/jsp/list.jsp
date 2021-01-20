@@ -4,13 +4,17 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.copy.board2.model.Board2Entity" %>   
 
-<% List<Board2Entity> list = (List)request.getAttribute("list");%> 
+<% 
+	List<Board2Entity> list = (List)request.getAttribute("list");
+	int pageLength = (int)request.getAttribute("pageLength");
+%> 
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>list</title>
+<link rel="stylesheet" href="/css/common.css">
 </head>
 <body>
 	<div>
@@ -32,7 +36,12 @@
 			</tr>
 			<% } %>
 		</table>
+		
+		<div class="pagingContainer">
+			<% for(int i=1; i<=pageLength; i++) { %>
+				<span><a href="/board2/list?page=<%=i%>"><%=i%></a></span>
+			<% } %>
+		</div>	
 	</div>
-	
 </body>
 </html>
