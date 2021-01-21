@@ -9,8 +9,8 @@
 <body>
 	<div>
 		<a href="/list">리스트로 돌아가기</a>
-		<a href="/del?i_board="><button>삭제</button></a>
-		<a href="/update?i_board="><button>수정</button></a>
+		<a href="/del?i_board=${param.i_board}"><button>삭제</button></a>
+		<a href="/update?i_board=${param.i_board}"><button>수정</button></a>
 	</div>
 	<div>
 		<h1>글 번호 : ${param.i_board}</h1>

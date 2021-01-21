@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.practice.board3.model.Board3Entity;
+import com.sun.tools.javac.resources.compiler_zh_CN;
 
 public class Board3DAO {
 	public static List<Board3Entity> selBoardList() {
@@ -100,5 +101,70 @@ public class Board3DAO {
 			DbUtils.close(con, ps, rs);
 		}
 		return null;
+	}
+	
+	public static void delBoard(Board3Entity param) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = "DELETE FROM board3 WHERE i_board = ?";
+		
+		try {
+			con = DbUtils.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getI_board());
+			ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.close(con, ps);
+		}
+	}
+	
+	public static void updBoard(Board3Entity param) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = "UPDATE board3 SET title = ?, writer = ?, ctnt = ? WHERE i_board = ? ";
+		
+		try {
+			con = DbUtils.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, param.getTitle());
+			ps.setString(2, param.getWriter());
+			ps.setString(3, param.getCtnt());
+			ps.setInt(4, param.getI_board());
+			ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.close(con, ps);
+		}
+	}
+	
+	public static int selPageLength(Board3DTO param) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT CEIL(count(i_board) / ?) FROM board3";
+		
+		try {
+			con = DbUtils.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getRowCountPerPage());
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.close(con, ps, rs);
+		}
+		return 0;
 	}
 }
